@@ -1,0 +1,5 @@
+LoginServersStart 0x86b8c00
+ServerStep 0x70
+PortStep 0x64
+RSA 0x84c1040
+ServersCount 10

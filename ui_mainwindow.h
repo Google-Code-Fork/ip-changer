@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Sat Jun 27 18:35:28 2009
+** Created: Mon Jun 29 21:06:37 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -63,7 +63,7 @@ public:
             MainWindowClass->setObjectName(QString::fromUtf8("MainWindowClass"));
         MainWindowClass->resize(364, 193);
         QIcon icon;
-        icon.addPixmap(QPixmap(QString::fromUtf8("../../../../usr/share/icons/Tango/32x32/devices/gnome-dev-computer.png")), QIcon::Normal, QIcon::Off);
+        icon.addPixmap(QPixmap(QString::fromUtf8(":/icons/icons/tools.png")), QIcon::Normal, QIcon::Off);
         MainWindowClass->setWindowIcon(icon);
         MainWindowClass->setTabShape(QTabWidget::Rounded);
         centralWidget = new QWidget(MainWindowClass);
@@ -162,9 +162,15 @@ public:
 
         toolButton = new QToolButton(centralWidget);
         toolButton->setObjectName(QString::fromUtf8("toolButton"));
+        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(toolButton->sizePolicy().hasHeightForWidth());
+        toolButton->setSizePolicy(sizePolicy3);
         QIcon icon1;
-        icon1.addPixmap(QPixmap(QString::fromUtf8("../../../../usr/share/icons/Tango/32x32/actions/gtk-refresh.png")), QIcon::Normal, QIcon::Off);
+        icon1.addPixmap(QPixmap(QString::fromUtf8(":/icons/icons/refresh.png")), QIcon::Normal, QIcon::Off);
         toolButton->setIcon(icon1);
+        toolButton->setIconSize(QSize(16, 16));
 
         horizontalLayout_4->addWidget(toolButton);
 
@@ -179,21 +185,21 @@ public:
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Maximum);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
-        label_2->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy4);
 
         verticalLayout_5->addWidget(label_2);
 
         comboBox_2 = new QComboBox(centralWidget);
         comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
-        QSizePolicy sizePolicy4(QSizePolicy::Maximum, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(comboBox_2->sizePolicy().hasHeightForWidth());
-        comboBox_2->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy5(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(comboBox_2->sizePolicy().hasHeightForWidth());
+        comboBox_2->setSizePolicy(sizePolicy5);
         comboBox_2->setInsertPolicy(QComboBox::InsertAtTop);
 
         verticalLayout_5->addWidget(comboBox_2);
@@ -228,11 +234,11 @@ public:
 
         pushButton_2 = new QPushButton(centralWidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        sizePolicy4.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
-        pushButton_2->setSizePolicy(sizePolicy4);
+        sizePolicy5.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
+        pushButton_2->setSizePolicy(sizePolicy5);
         pushButton_2->setMinimumSize(QSize(35, 35));
         QIcon icon2;
-        icon2.addPixmap(QPixmap(QString::fromUtf8("../../../../usr/share/icons/Tango/32x32/actions/stock_stop.png")), QIcon::Normal, QIcon::Off);
+        icon2.addPixmap(QPixmap(QString::fromUtf8(":/icons/icons/quit.png")), QIcon::Normal, QIcon::Off);
         pushButton_2->setIcon(icon2);
         pushButton_2->setIconSize(QSize(24, 24));
 
@@ -244,7 +250,7 @@ public:
         pushButton->setSizePolicy(sizePolicy2);
         pushButton->setMinimumSize(QSize(130, 35));
         QIcon icon3;
-        icon3.addPixmap(QPixmap(QString::fromUtf8("../../../../usr/share/icons/Tango/32x32/actions/next.png")), QIcon::Normal, QIcon::Off);
+        icon3.addPixmap(QPixmap(QString::fromUtf8(":/icons/icons/go.png")), QIcon::Normal, QIcon::Off);
         pushButton->setIcon(icon3);
         pushButton->setIconSize(QSize(24, 24));
 

@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->toolButton, SIGNAL(clicked()), this, SLOT(updateList()));
     connect(ui->pushButton_2, SIGNAL(clicked()), qApp, SLOT(quit()));
 
-    QDir versionsDir("./versions");
+    QDir versionsDir(qApp->applicationDirPath()+QString("/versions"));
     QStringList versions=versionsDir.entryList(QDir::Files);
     if(!versions.size()){
         QMessageBox::critical(this, "Error", "Directory \"versions\" is empty or does not exist.\nPlease reinstall the program.");
@@ -20,16 +20,19 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    std::ifstream config("./history.txt");
-    if(config.is_open()){
-        while(config.good()){
+    std::ifstream history(QString(qApp->applicationDirPath()+"/history.txt").toStdString().c_str());
+    if(history.is_open()){
+        while(history.good()){
             char buff[512];
-            config.getline(buff, 512);
+            history.getline(buff, 512);
+            while(int result=ui->comboBox->findText(buff)!=-1)
+                ui->comboBox->removeItem(result);
+
             ui->comboBox->insertItem(0, buff);
         }
         ui->comboBox->removeItem(0);
         ui->comboBox->setCurrentIndex(0);
-        config.close();
+        history.close();
     }
 }
 
@@ -58,16 +61,22 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     pid_t pid=processes[ui->comboBox_3->currentIndex()].pid;
-    Client client(pid, ui->comboBox_2->currentText().toStdString());
+
+    QString version=qApp->applicationDirPath()+"/versions/"+ui->comboBox_2->currentText();
+    Client client(pid, version.toStdString());
+
+
     if(!client.changeIP(ui->comboBox->currentText().toStdString(), ui->spinBox->value())){
         QMessageBox::critical(this, "Error", "IP could not be changed.");
     }
 
-    std::ofstream config("./history.txt", std::ofstream::out|std::ofstream::app);
-    if(!config.is_open()){
-        QMessageBox::warning(this, "Error", "Could not edit config file.");
+    std::fstream history(QString(qApp->applicationDirPath()+"/history.txt").toStdString().c_str(),
+                        std::fstream::out|std::fstream::in|std::fstream::app);
+    if(!history.is_open()){
+        QMessageBox::warning(this, "Error", "Could not edit \"history.txt\".");
     }
-
-    config<<ui->comboBox->currentText().toStdString()<<std::endl;
-    config.close();
+    else{
+        history<<ui->comboBox->currentText().toStdString()<<std::endl;
+        history.close();
+    }
 }

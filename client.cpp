@@ -8,8 +8,9 @@ Client::Client(int PID, std::string ver) :
 bool Client::changeIP(std::string IP, int port){
     errno=0;
     Const consts;
-    if(!consts.load("./versions/"+version))
+    if(!consts.load(version))
         return false;
+
 
     Process process(pid);
 

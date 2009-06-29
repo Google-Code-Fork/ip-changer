@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../usr/share/icons/Tango/32x32/devices/gnome-dev-computer.png</normaloff>../../../../usr/share/icons/Tango/32x32/devices/gnome-dev-computer.png</iconset>
+    <normaloff>:/icons/icons/tools.png</normaloff>:/icons/icons/tools.png</iconset>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
@@ -141,12 +141,24 @@
           </item>
           <item>
            <widget class="QToolButton" name="toolButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>...</string>
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../../../../usr/share/icons/Tango/32x32/actions/gtk-refresh.png</normaloff>../../../../usr/share/icons/Tango/32x32/actions/gtk-refresh.png</iconset>
+              <normaloff>:/icons/icons/refresh.png</normaloff>:/icons/icons/refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -248,7 +260,7 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../usr/share/icons/Tango/32x32/actions/stock_stop.png</normaloff>../../../../usr/share/icons/Tango/32x32/actions/stock_stop.png</iconset>
+          <normaloff>:/icons/icons/quit.png</normaloff>:/icons/icons/quit.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -277,7 +289,7 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../usr/share/icons/Tango/32x32/actions/next.png</normaloff>../../../../usr/share/icons/Tango/32x32/actions/next.png</iconset>
+          <normaloff>:/icons/icons/go.png</normaloff>:/icons/icons/go.png</iconset>
         </property>
         <property name="iconSize">
          <size>

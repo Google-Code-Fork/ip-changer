@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QDir>
 #include <fstream>
+#include <sstream>
+#include <iostream>
 #include "pList/pList.h"
 #include "client.h"
 

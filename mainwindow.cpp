@@ -25,13 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
         while(history.good()){
             char buff[512];
             history.getline(buff, 512);
-            while(int result=ui->comboBox->findText(buff)!=-1)
-                ui->comboBox->removeItem(result);
-
             ui->comboBox->insertItem(0, buff);
         }
         ui->comboBox->removeItem(0);
         ui->comboBox->setCurrentIndex(0);
+        ui->comboBox->setDuplicatesEnabled(false);
         history.close();
     }
 }

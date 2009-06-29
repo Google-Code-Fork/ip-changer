@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <string>
 #include <iomanip>
 #include <errno.h>
 #include <sys/ptrace.h>

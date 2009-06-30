@@ -21,9 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     std::string file=QString(qApp->applicationDirPath()+"/history.txt").toStdString();
     std::list<std::string> items;
     history=new History(file);
-    if(!history->read(items)){
-        QMessageBox::warning(this, "Warning", "Could not read history file.");
-    }
+    history->read(items);
 
     for(std::list<std::string>::const_iterator item=items.begin();item!=items.end();item++){
         ui->comboBox->addItem((*item).c_str());

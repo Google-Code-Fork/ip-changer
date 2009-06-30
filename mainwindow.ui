@@ -59,9 +59,6 @@
           <property name="insertPolicy">
            <enum>QComboBox::InsertAtTop</enum>
           </property>
-          <property name="minimumContentsLength">
-           <number>1</number>
-          </property>
          </widget>
         </item>
        </layout>

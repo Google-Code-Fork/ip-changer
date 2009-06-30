@@ -18,19 +18,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     updateList();
 
+    std::string file=QString(qApp->applicationDirPath()+"/history.txt").toStdString();
+    std::list<std::string> items;
+    history=new History(file);
+    if(!history->read(items)){
+        QMessageBox::warning(this, "Warning", "Could not read history file.");
+    }
 
-
-    std::ifstream history(QString(qApp->applicationDirPath()+"/history.txt").toStdString().c_str());
-    if(history.is_open()){
-        while(history.good()){
-            char buff[512];
-            history.getline(buff, 512);
-            ui->comboBox->insertItem(0, buff);
-        }
-        ui->comboBox->removeItem(0);
-        ui->comboBox->setCurrentIndex(0);
-        ui->comboBox->setDuplicatesEnabled(false);
-        history.close();
+    for(std::list<std::string>::const_iterator item=items.begin();item!=items.end();item++){
+        ui->comboBox->addItem((*item).c_str());
     }
 }
 
@@ -68,13 +64,7 @@ void MainWindow::on_pushButton_clicked()
         QMessageBox::critical(this, "Error", "IP could not be changed.");
     }
 
-    std::fstream history(QString(qApp->applicationDirPath()+"/history.txt").toStdString().c_str(),
-                        std::fstream::out|std::fstream::in|std::fstream::app);
-    if(!history.is_open()){
-        QMessageBox::warning(this, "Error", "Could not edit \"history.txt\".");
-    }
-    else{
-        history<<ui->comboBox->currentText().toStdString()<<std::endl;
-        history.close();
+    if(!history->write(ui->comboBox->currentText().toStdString())){
+        QMessageBox::warning(this, "Warning", "Could not edit history file.");
     }
 }

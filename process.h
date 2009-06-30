@@ -1,10 +1,9 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
-#include <iostream>
+#include <cstring>
 #include <sys/ptrace.h>
 #include <sys/wait.h>
-#include <errno.h>
 
 class Process
 {

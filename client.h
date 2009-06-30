@@ -3,11 +3,9 @@
 
 #include <fstream>
 #include <sstream>
-#include <string>
+#include <cstring>
 #include <iomanip>
 #include <errno.h>
-#include <sys/ptrace.h>
-#include <sys/wait.h>
 
 const char RSA_KEY[]="109120132967399429278860960508995541528237502902798129123468757937\
 266291492576446330739696001110603907230888610072655818825358503429057592827629436\

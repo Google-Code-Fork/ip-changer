@@ -4,9 +4,7 @@
 #include <QtGui/QMainWindow>
 #include <QMessageBox>
 #include <QDir>
-#include <fstream>
-#include <sstream>
-#include <iostream>
+#include "history.h"
 #include "pList/pList.h"
 #include "client.h"
 
@@ -26,6 +24,7 @@ public:
 private:
     Ui::MainWindowClass *ui;
     std::vector<pList::Proc> processes;
+    History *history;
 
 private slots:
     void updateList();

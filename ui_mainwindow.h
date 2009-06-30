@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Mon Jun 29 21:06:37 2009
+** Created: Tue Jun 30 11:40:32 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -99,7 +99,6 @@ public:
         comboBox->setSizePolicy(sizePolicy1);
         comboBox->setEditable(true);
         comboBox->setInsertPolicy(QComboBox::InsertAtTop);
-        comboBox->setMinimumContentsLength(1);
 
         verticalLayout->addWidget(comboBox);
 

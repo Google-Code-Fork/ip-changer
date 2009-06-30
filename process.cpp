@@ -5,7 +5,6 @@ Process::Process(int PID) :
 {}
 
 bool Process::readMemory(unsigned addr, char *data, unsigned size){
-    errno=0;
     if(ptrace(PTRACE_ATTACH, pid, 0, 0)!=0)
         return false;
 
@@ -14,10 +13,6 @@ bool Process::readMemory(unsigned addr, char *data, unsigned size){
     for(unsigned i=0;i<size;i+=sizeof(int)){
         int buff;
         buff=ptrace(PTRACE_PEEKDATA, pid, addr+i, 0);
-        if(errno){
-            std::cout<<strerror(errno)<<std::endl;
-            errno=0;
-        }
         memcpy(data+i, &buff, sizeof(int));
     }
 
@@ -28,7 +23,6 @@ bool Process::readMemory(unsigned addr, char *data, unsigned size){
 }
 
 bool Process::writeMemory(unsigned addr, const char *data, unsigned size){
-    errno=0;
     if(ptrace(PTRACE_ATTACH, pid, 0, 0)!=0)
         return false;
     wait(0);
@@ -37,10 +31,6 @@ bool Process::writeMemory(unsigned addr, const char *data, unsigned size){
         int buff;
         memcpy(&buff, data+i, sizeof(int));
         ptrace(PTRACE_POKEDATA, pid, addr+i, buff);
-        if(errno){
-            std::cout<<strerror(errno)<<std::endl;
-            errno=0;
-        }
     }
 
     if(ptrace(PTRACE_DETACH, pid, 0, 0)!=0)

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Tue Jun 30 11:40:32 2009
+** Created: Fri Jul 3 21:55:44 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -65,7 +65,6 @@ public:
         QIcon icon;
         icon.addPixmap(QPixmap(QString::fromUtf8(":/icons/icons/tools.png")), QIcon::Normal, QIcon::Off);
         MainWindowClass->setWindowIcon(icon);
-        MainWindowClass->setTabShape(QTabWidget::Rounded);
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);

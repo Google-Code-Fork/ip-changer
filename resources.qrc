@@ -4,5 +4,7 @@
         <file>icons/quit.png</file>
         <file>icons/refresh.png</file>
         <file>icons/tools.png</file>
+        <file>icons/top.png</file>
+        <file>icons/bottom.png</file>
     </qresource>
 </RCC>

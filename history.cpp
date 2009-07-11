@@ -4,16 +4,17 @@ History::History(std::string file):
         filename(file)
 {}
 
-bool History::read(std::list<std::string> &addresses){
+bool History::read(std::list<std::string> *addresses){
     std::ifstream history(filename.c_str());
     if(!history.is_open())
         return false;
 
+    addresses->clear();
     while(history.good()){
         char line[maxLineSize];
         history.getline(line, maxLineSize);
         if(strlen(line)>=static_cast<int>(minIPSize))
-            addresses.push_front(line);
+            addresses->push_front(line);
     }
     history.close();
     return true;

@@ -14,7 +14,7 @@ class History
 
 public:
     History(std::string);
-    bool read(std::list<std::string> &);
+    bool read(std::list<std::string> *);
     bool write(std::string);
 };
 

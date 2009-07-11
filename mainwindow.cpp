@@ -5,12 +5,14 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
 {
     ui->setupUi(this);
-    connect(ui->toolButton, SIGNAL(clicked()), this, SLOT(updateList()));
+    connect(ui->toolButton, SIGNAL(clicked()), this, SLOT(updateProcList()));
     connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(hide()));
 
-    loadVersions("versions");
+    loadDirs();
 
-    updateList();
+    loadVersions();
+
+    updateProcList();
 
     readHistory("history.txt");
 
@@ -20,17 +22,23 @@ MainWindow::MainWindow(QWidget *parent)
     createTrayIcon();
 }
 
-void MainWindow::loadVersions(QString dir){
-    QDir versionsDir(qApp->applicationDirPath()+"/"+dir);
-    QStringList versions=versionsDir.entryList(QDir::Files);
-    if(!versions.size()){
-        QMessageBox::critical(this, "Error", "Directory \"versions\" is empty or does not exist.\nPlease reinstall the program.");
-    }
+void MainWindow::loadDirs(){
+    versionsDir=new QDir(qApp->applicationDirPath()+"/versions");
+    if(!versionsDir->exists() || versionsDir->entryList(QDir::Files).isEmpty())
+        QMessageBox::critical(this, "Error", "Versions directory is empty or doesn't exist.\nPlease reinstall the program.");
+
+    confDir=new QDir(QString(getenv("HOME"))+"/.ip-changer");
+    if(!confDir->exists())
+        confDir->mkpath(confDir->path());
+}
+
+void MainWindow::loadVersions(){
+    QStringList versions=versionsDir->entryList(QDir::Files);
 
     ui->comboBox_2->addItems(versions);
 }
 
-void MainWindow::updateList(){
+void MainWindow::updateProcList(){
     ui->comboBox_3->clear();
     if(!pList::getList(processes, false)){
         QMessageBox::critical(this, "Error", "Could not get list of running processes.");
@@ -48,30 +56,13 @@ void MainWindow::updateList(){
 }
 
 void MainWindow::readHistory(QString filename){
-    std::string file=QString(qApp->applicationDirPath()+"/"+filename).toStdString();
+    history=new History((confDir->path()+QDir::separator()+filename).toStdString());
+
     std::list<std::string> items;
-    history=new History(file);
-    history->read(items);
+    history->read(&items);
 
     for(std::list<std::string>::const_iterator item=items.begin();item!=items.end();item++)
         ui->comboBox->addItem((*item).c_str());
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-    pid_t pid=processes[ui->comboBox_3->currentIndex()].pid;
-
-    QString version=qApp->applicationDirPath()+"/versions/"+ui->comboBox_2->currentText();
-    Client client(pid, version.toStdString());
-
-
-    if(!client.changeIP(ui->comboBox->currentText().toStdString(), ui->spinBox->value())){
-        QMessageBox::critical(this, "Error", "IP could not be changed.");
-    }
-
-    if(!history->write(ui->comboBox->currentText().toStdString())){
-        QMessageBox::warning(this, "Warning", "Could not edit history file.");
-    }
 }
 
 void MainWindow::createActions(){
@@ -100,6 +91,23 @@ void MainWindow::createTrayIcon(){
     trayIcon->setVisible(true);
 }
 
+void MainWindow::on_pushButton_clicked()
+{
+    pid_t pid=processes[ui->comboBox_3->currentIndex()].pid;
+
+    QString version=versionsDir->path()+'/'+ui->comboBox_2->currentText();
+    Client client(pid, version.toStdString());
+
+
+    if(!client.changeIP(ui->comboBox->currentText().toStdString(), ui->spinBox->value())){
+        QMessageBox::critical(this, "Error", "IP could not be changed.");
+    }
+
+    if(!history->write(ui->comboBox->currentText().toStdString())){
+        QMessageBox::warning(this, "Warning", "Could not edit history file.");
+    }
+}
+
 void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason){
     switch(reason){
         case QSystemTrayIcon::Context:
@@ -116,5 +124,8 @@ void MainWindow::closeEvent(QCloseEvent *e){
 }
 
 MainWindow::~MainWindow(){
+    delete versionsDir;
+    delete confDir;
+    delete history;
     delete ui;
 }

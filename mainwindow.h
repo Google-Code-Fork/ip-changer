@@ -1,8 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 #include <QSystemTrayIcon>
+#include <QPushButton>
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QMenu>
@@ -34,8 +35,11 @@ private:
     QAction *actionRestore;
     QAction *actionExit;
 
-    void loadVersions(QString);
+    void loadDirs();
+    void loadVersions();
     void readHistory(QString);
+
+    QDir *versionsDir, *confDir;
 
     QSystemTrayIcon *trayIcon;
     void createTrayIcon();
@@ -43,7 +47,7 @@ private:
     void closeEvent(QCloseEvent*);
 
 private slots:
-    void updateList();
+    void updateProcList();
     void on_pushButton_clicked();
     void iconActivated(QSystemTrayIcon::ActivationReason);
 };

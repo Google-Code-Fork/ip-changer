@@ -10,11 +10,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     loadDirs();
 
+    loadFiles();
+
     loadVersions();
 
     updateProcList();
 
-    readHistory("history.txt");
+    readHistory();
+    readLastVersion();
 
     createActions();
     connect(ui->pushButton_2, SIGNAL(clicked()), actionExit, SLOT(trigger()));
@@ -22,20 +25,54 @@ MainWindow::MainWindow(QWidget *parent)
     createTrayIcon();
 }
 
+void MainWindow::loadFiles(){
+    historyFile=new QFile(confLocalDir->path()+"/history.txt");
+    lastVersionFile=new QFile(confLocalDir->path()+"/last.txt");
+}
+
 void MainWindow::loadDirs(){
-    versionsDir=new QDir(qApp->applicationDirPath()+"/versions");
+    confGlobalDir=new QDir("/usr/share/ip-changer");
+    versionsDir=new QDir(confGlobalDir->path()+"/versions");
+    confLocalDir=new QDir(QString(getenv("HOME"))+"/.ip-changer");
+
+
+    if(!confGlobalDir->exists()){
+        QMessageBox::critical(this, "Error", "Directory \""+confGlobalDir->path()+"\" does not exist.\nPlease reinstall the program.");
+        qApp->quit();
+    }
+
     if(!versionsDir->exists() || versionsDir->entryList(QDir::Files).isEmpty())
         QMessageBox::critical(this, "Error", "Versions directory is empty or doesn't exist.\nPlease reinstall the program.");
 
-    confDir=new QDir(QString(getenv("HOME"))+"/.ip-changer");
-    if(!confDir->exists())
-        confDir->mkpath(confDir->path());
+    if(!confLocalDir->exists())
+        confLocalDir->mkpath(confLocalDir->path());
 }
 
 void MainWindow::loadVersions(){
     QStringList versions=versionsDir->entryList(QDir::Files);
 
     ui->comboBox_2->addItems(versions);
+}
+
+void MainWindow::readLastVersion(){
+    lastVersionFile->open(QIODevice::ReadOnly);
+    if(!lastVersionFile->isReadable())
+        return;
+
+    char buff[16];
+    lastVersionFile->read(buff, 16);
+    int lastVersion=ui->comboBox_2->findText(buff);
+    if(lastVersion>=0)
+        ui->comboBox_2->setCurrentIndex(lastVersion);
+
+    lastVersionFile->close();
+}
+
+void MainWindow::writeLastVersion(){
+    lastVersionFile->open(QIODevice::WriteOnly|QIODevice::Truncate);
+    lastVersionFile->write(ui->comboBox_2->currentText().toAscii());
+
+    lastVersionFile->close();
 }
 
 void MainWindow::updateProcList(){
@@ -55,8 +92,8 @@ void MainWindow::updateProcList(){
     }
 }
 
-void MainWindow::readHistory(QString filename){
-    history=new History((confDir->path()+QDir::separator()+filename).toStdString());
+void MainWindow::readHistory(){
+    history=new History(historyFile->fileName().toStdString());
 
     std::list<std::string> items;
     history->read(&items);
@@ -106,6 +143,8 @@ void MainWindow::on_pushButton_clicked()
     if(!history->write(ui->comboBox->currentText().toStdString())){
         QMessageBox::warning(this, "Warning", "Could not edit history file.");
     }
+
+    writeLastVersion();
 }
 
 void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason){
@@ -125,7 +164,7 @@ void MainWindow::closeEvent(QCloseEvent *e){
 
 MainWindow::~MainWindow(){
     delete versionsDir;
-    delete confDir;
+    delete confLocalDir;
     delete history;
     delete ui;
 }

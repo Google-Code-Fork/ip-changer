@@ -3,13 +3,19 @@
 
 #include <vector>
 #include <string>
-#include <algorithm>
 #include <cstdio>
+#include <sstream>
+#include <algorithm>
+#include <iostream>
 
 namespace pList{
     struct Proc{
+      Proc(unsigned pid, std::string name) :
+              pid(pid), name(name)
+      {}
+
+      unsigned pid;
       std::string name;
-      int pid;
     };
 
     int getList(std::vector<Proc> &, bool);

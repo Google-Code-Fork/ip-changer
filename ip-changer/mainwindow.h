@@ -36,10 +36,15 @@ private:
     QAction *actionExit;
 
     void loadDirs();
+    void loadFiles();
     void loadVersions();
-    void readHistory(QString);
+    void readHistory();
+    void readLastVersion();
+    void writeLastVersion();
 
-    QDir *versionsDir, *confDir;
+    QFile *historyFile, *lastVersionFile;
+
+    QDir *versionsDir, *confLocalDir, *confGlobalDir;
 
     QSystemTrayIcon *trayIcon;
     void createTrayIcon();

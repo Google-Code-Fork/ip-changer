@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
+    <width>374</width>
     <height>199</height>
    </rect>
   </property>
@@ -14,7 +14,7 @@
    <string>Tibia IP changer</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="resources.qrc">
     <normaloff>:/icons/icons/tools.png</normaloff>:/icons/icons/tools.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -126,7 +126,7 @@
           <item>
            <widget class="QComboBox" name="comboBox_3">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -148,7 +148,7 @@
              <string>...</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="resources.qrc">
               <normaloff>:/icons/icons/refresh.png</normaloff>:/icons/icons/refresh.png</iconset>
             </property>
             <property name="iconSize">
@@ -262,7 +262,7 @@ p, li { white-space: pre-wrap; }
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="resources.qrc">
           <normaloff>:/icons/icons/quit.png</normaloff>:/icons/icons/quit.png</iconset>
         </property>
         <property name="iconSize">
@@ -285,7 +285,7 @@ p, li { white-space: pre-wrap; }
          <string>Minimize to tray</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="resources.qrc">
           <normaloff>:/icons/icons/bottom.png</normaloff>:/icons/icons/bottom.png</iconset>
         </property>
         <property name="iconSize">
@@ -320,7 +320,7 @@ p, li { white-space: pre-wrap; }
          <string>Change IP!</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="resources.qrc">
           <normaloff>:/icons/icons/go.png</normaloff>:/icons/icons/go.png</iconset>
         </property>
         <property name="iconSize">
@@ -353,6 +353,8 @@ p, li { white-space: pre-wrap; }
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

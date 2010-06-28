@@ -149,12 +149,32 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason){
     switch(reason){
-        case QSystemTrayIcon::Context:
-        break;
-        default:
-            showNormal();
-        break;
+      case QSystemTrayIcon::Trigger:
+      case QSystemTrayIcon::MiddleClick:
+      case QSystemTrayIcon::DoubleClick:
+	if (isVisible())
+	  hide();
+	else {
+	  show();
+	  activateWindow();
+	}
+	break;
     }
+}
+
+
+ 
+ 
+void MainWindow::setVisible(bool visible){
+  bool oldVisible = isVisible();
+  if (!visible && oldVisible){
+    geometryState=saveGeometry();
+  }
+  
+  QMainWindow::setVisible(visible);
+  if (visible && !oldVisible){ 
+    restoreGeometry(geometryState);
+  }
 }
 
 void MainWindow::closeEvent(QCloseEvent *e){

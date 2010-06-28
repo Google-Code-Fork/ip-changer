@@ -42,6 +42,9 @@ private:
     void readLastVersion();
     void writeLastVersion();
 
+    void setVisible(bool visible);
+    QByteArray geometryState;
+
     QFile *historyFile, *lastVersionFile;
 
     QDir *versionsDir, *confLocalDir, *confGlobalDir;
